@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Xây dựng chatbot AI tùy chỉnh cho website của bạn">
+    <title>Custom Chatbot Builder - Tạo Chatbot AI Dễ Dàng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-bar">
+        <div class="progress-steps">
+            <div class="progress-step active" data-step="1">
+                <div class="step-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 2L3 7V17C3 17.6 3.4 18 4 18H8V12H12V18H16C16.6 18 17 17.6 17 17V7L10 2Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <span class="step-label">Nguồn dữ liệu</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="2">
+                <div class="step-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                            d="M16 3H4C3.4 3 3 3.4 3 4V16C3 16.6 3.4 17 4 17H16C16.6 17 17 16.6 17 16V4C17 3.4 16.6 3 16 3ZM7 14H5V7H7V14ZM12 14H10V10H12V14ZM12 9H10V7H12V9ZM15 14H13V12H15V14ZM15 11H13V7H15V11Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <span class="step-label">Cấu hình</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="3">
+                <div class="step-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none" />
+                        <path d="M7 10L9 12L13 8" stroke="currentColor" stroke-width="2" fill="none" />
+                    </svg>
+                </div>
+                <span class="step-label">Xem trước</span>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="4">
+                <div class="step-icon">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                            d="M9 2C8.4 2 8 2.4 8 3V4H5C4.4 4 4 4.4 4 5V16C4 16.6 4.4 17 5 17H15C15.6 17 16 16.6 16 16V5C16 4.4 15.6 4 15 4H12V3C12 2.4 11.6 2 11 2H9ZM10 7L13 10H11V14H9V10H7L10 7Z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <span class="step-label">Hoàn thành</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Left Sidebar - Data Sources -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="url(#gradient1)" />
+                        <path
+                            d="M16 8C11.6 8 8 11.6 8 16C8 17.8 8.6 19.4 9.6 20.8L8 24L11.2 22.4C12.6 23.4 14.2 24 16 24C20.4 24 24 20.4 24 16C24 11.6 20.4 8 16 8ZM16 10C19.3 10 22 12.7 22 16C22 19.3 19.3 22 16 22C14.5 22 13.1 21.5 12 20.7L11 21.2L11.5 20.2C10.7 19.1 10.2 17.7 10.2 16.2C10 12.7 12.7 10 16 10Z"
+                            fill="white" />
+                        <defs>
+                            <linearGradient id="gradient1" x1="0" y1="0" x2="32" y2="32">
+                                <stop offset="0%" stop-color="#6366F1" />
+                                <stop offset="100%" stop-color="#8B5CF6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1>Chatbot Builder</h1>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <p class="nav-section-title">Nguồn dữ liệu</p>
+                    <button class="nav-item active" data-module="files">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M11 2H4C3.4 2 3 2.4 3 3V17C3 17.6 3.4 18 4 18H16C16.6 18 17 17.6 17 17V8L11 2Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M11 2V8H17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Files</span>
+                    </button>
+                    <button class="nav-item" data-module="text">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path
+                                d="M15 3H5C4.4 3 4 3.4 4 4V16C4 16.6 4.4 17 5 17H15C15.6 17 16 16.6 16 16V4C16 3.4 15.6 3 15 3Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M7 7H13M7 10H13M7 13H10" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                        <span>Text</span>
+                    </button>
+                    <button class="nav-item" data-module="website">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" />
+                            <path
+                                d="M3 10H17M10 3C11.5 5 12 7.5 12 10C12 12.5 11.5 15 10 17C8.5 15 8 12.5 8 10C8 7.5 8.5 5 10 3Z"
+                                stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>Website</span>
+                    </button>
+                    <button class="nav-item" data-module="qa">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" />
+                            <path
+                                d="M10 14V14.01M10 11C10 9.9 10.9 9 12 9C13.1 9 14 8.1 14 7C14 5.9 13.1 5 12 5C10.9 5 10 5.9 10 7"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <span>Q&A</span>
+                    </button>
+                    <button class="nav-item" data-module="notion">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M5 3L7 2L15 3L17 4V16L15 17L7 16L5 15V3Z" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M7 2V16M15 4V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <span>Notion</span>
+                    </button>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="content-header">
+                <h2 id="module-title">Tải lên Files</h2>
+                <p id="module-description">Chatbot sẽ học nội dung từ các file này</p>
+            </div>
+
+            <!-- Files Module -->
+            <div class="module-content active" id="files-module">
+                <div class="upload-zone" id="dropZone">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 16V32M16 24H32" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        <rect x="8" y="8" width="32" height="32" rx="4" stroke="currentColor" stroke-width="2"
+                            stroke-dasharray="4 4" />
+                    </svg>
+                    <h3>Kéo thả file vào đây</h3>
+                    <p>hoặc</p>
+                    <button class="btn-upload">Chọn file từ máy tính</button>
+                    <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt,.csv" hidden>
+                    <span class="upload-hint">Hỗ trợ: PDF, DOCX, TXT, CSV</span>
+                </div>
+
+                <div class="file-list" id="fileList">
+                    <!-- Uploaded files will appear here -->
+                </div>
+            </div>
+
+            <!-- Text Module -->
+            <div class="module-content" id="text-module">
+                <textarea class="text-input" id="textContent" placeholder="Dán nội dung bạn muốn chatbot học tại đây...
+
+Ví dụ:
+- Quy định nội bộ công ty
+- Mô tả sản phẩm chi tiết
+- Hướng dẫn sử dụng dịch vụ
+- Chính sách bảo hành, đổi trả"></textarea>
+            </div>
+
+            <!-- Website Module -->
+            <div class="module-content" id="website-module">
+                <div class="form-group">
+                    <label for="websiteUrl">URL Website</label>
+                    <input type="url" id="websiteUrl" class="input-field" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label for="sitemapUrl">URL Sitemap (tùy chọn)</label>
+                    <input type="url" id="sitemapUrl" class="input-field" placeholder="https://example.com/sitemap.xml">
+                    <p class="field-hint">Hệ thống sẽ quét và học nội dung từ website</p>
+                </div>
+            </div>
+
+            <!-- Q&A Module -->
+            <div class="module-content" id="qa-module">
+                <div id="qaList">
+                    <div class="qa-pair">
+                        <div class="form-group">
+                            <label>Câu hỏi</label>
+                            <input type="text" class="input-field" placeholder="Giờ làm việc của công ty là mấy giờ?">
+                        </div>
+                        <div class="form-group">
+                            <label>Câu trả lời</label>
+                            <textarea class="input-field" rows="3"
+                                placeholder="Chúng tôi làm việc từ 8:00 - 17:30, Thứ 2 - Thứ 6"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-add" id="addQaBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 5V15M5 10H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    Thêm câu hỏi
+                </button>
+            </div>
+
+            <!-- Notion Module -->
+            <div class="module-content" id="notion-module">
+                <div class="form-group">
+                    <label for="notionUrl">Link trang Notion</label>
+                    <input type="url" id="notionUrl" class="input-field" placeholder="https://www.notion.so/...">
+                    <p class="field-hint">Kết nối và lấy nội dung từ Notion</p>
+                </div>
+            </div>
+
+            <!-- Chatbot Configuration Section -->
+            <div class="config-section">
+                <h3 class="section-title">Cấu hình Chatbot</h3>
+
+                <div class="form-group">
+                    <label for="chatbotName">Tên chatbot</label>
+                    <input type="text" id="chatbotName" class="input-field" placeholder="VD: Trợ lý CSKH"
+                        value="Trợ lý AI">
+                </div>
+
+                <div class="form-group">
+                    <label for="chatbotPersonality">Tính cách Chatbot</label>
+                    <select id="chatbotPersonality" class="input-field">
+                        <option value="default">Chatbot AI mặc định</option>
+                        <option value="customer-service">Nhân viên chăm sóc khách hàng</option>
+                        <option value="sales">Nhân viên bán hàng</option>
+                        <option value="tutor">Gia sư ngôn ngữ</option>
+                        <option value="developer">Chuyên gia lập trình</option>
+                        <option value="coach">Life Coach</option>
+                        <option value="fashion">Cố vấn thời trang tương lai</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="customPrompt">Hướng dẫn riêng cho chatbot (Nâng cao)</label>
+                    <textarea id="customPrompt" class="input-field" rows="4"
+                        placeholder="VD: Luôn trả lời ngắn gọn, thân thiện, xưng em – anh/chị, ưu tiên gợi ý mua hàng"></textarea>
+                </div>
+
+                <h3 class="section-title">Tùy chỉnh Giao diện</h3>
+
+                <div class="form-group">
+                    <label>Biểu tượng Chatbot</label>
+                    <div class="icon-upload">
+                        <div class="icon-preview" id="iconPreview">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                <circle cx="20" cy="20" r="18" fill="#6366F1" />
+                                <path
+                                    d="M20 10C14 10 10 14 10 20C10 22.5 10.8 24.8 12 26.7L10 30L13.3 28C15.2 29.2 17.5 30 20 30C26 30 30 26 30 20C30 14 26 10 20 10Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+                        <button class="btn-upload-icon">
+                            Tải lên ảnh
+                            <input type="file" id="iconInput" accept=".jpg,.jpeg,.png,.svg" hidden>
+                        </button>
+                        <span class="upload-hint">JPG, PNG, SVG</span>
+                    </div>
+                </div>
+
+                <div class="color-controls">
+                    <div class="form-group">
+                        <label for="userMessageColor">Màu tin nhắn người dùng</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="userMessageColor" value="#6366F1">
+                            <input type="text" class="color-hex" id="userColorHex" value="#6366F1">
+                            <button class="btn-reset" data-target="userMessageColor" data-default="#6366F1">Đặt
+                                lại</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="botMessageColor">Màu tin nhắn chatbot</label>
+                        <div class="color-picker-wrapper">
+                            <input type="color" id="botMessageColor" value="#F3F4F6">
+                            <input type="text" class="color-hex" id="botColorHex" value="#F3F4F6">
+                            <button class="btn-reset" data-target="botMessageColor" data-default="#F3F4F6">Đặt
+                                lại</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel - Chatbot Preview -->
+        <aside class="preview-panel">
+            <div class="preview-header">
+                <h3>Xem trước</h3>
+                <span class="preview-badge">Cập nhật trực tiếp</span>
+            </div>
+
+            <div class="chatbot-preview">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-bot-info">
+                            <div class="chat-bot-avatar" id="previewAvatar">
+                                <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="18" fill="#6366F1" />
+                                    <path
+                                        d="M20 10C14 10 10 14 10 20C10 22.5 10.8 24.8 12 26.7L10 30L13.3 28C15.2 29.2 17.5 30 20 30C26 30 30 26 30 20C30 14 26 10 20 10Z"
+                                        fill="white" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 id="previewName">Trợ lý AI</h4>
+                                <span class="status-online">Đang hoạt động</span>
+                            </div>
+                        </div>
+                        <button class="chat-close-btn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="18" fill="#6366F1" />
+                                    <path
+                                        d="M20 10C14 10 10 14 10 20C10 22.5 10.8 24.8 12 26.7L10 30L13.3 28C15.2 29.2 17.5 30 20 30C26 30 30 26 30 20C30 14 26 10 20 10Z"
+                                        fill="white" />
+                                </svg>
+                            </div>
+                            <div class="message-content bot">
+                                Xin chào! Tôi là <span id="botNameInMessage">Trợ lý AI</span>. Tôi có thể giúp gì cho
+                                bạn?
+                            </div>
+                        </div>
+
+                        <div class="message user-message">
+                            <div class="message-content user">
+                                Cho tôi biết giờ làm việc của công ty
+                            </div>
+                        </div>
+
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="18" fill="#6366F1" />
+                                    <path
+                                        d="M20 10C14 10 10 14 10 20C10 22.5 10.8 24.8 12 26.7L10 30L13.3 28C15.2 29.2 17.5 30 20 30C26 30 30 26 30 20C30 14 26 10 20 10Z"
+                                        fill="white" />
+                                </svg>
+                            </div>
+                            <div class="message-content bot">
+                                Chúng tôi làm việc từ 8:00 - 17:30, từ Thứ 2 đến Thứ 6. Bạn có cần hỗ trợ thêm điều gì
+                                không?
+                            </div>
+                        </div>
+
+                        <div class="message user-message">
+                            <div class="message-content user">
+                                Sản phẩm của các bạn có những tính năng gì?
+                            </div>
+                        </div>
+
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+                                    <circle cx="20" cy="20" r="18" fill="#6366F1" />
+                                    <path
+                                        d="M20 10C14 10 10 14 10 20C10 22.5 10.8 24.8 12 26.7L10 30L13.3 28C15.2 29.2 17.5 30 20 30C26 30 30 26 30 20C30 14 26 10 20 10Z"
+                                        fill="white" />
+                                </svg>
+                            </div>
+                            <div class="message-content bot">
+                                Sản phẩm của chúng tôi có nhiều tính năng nổi bật như tích hợp AI, hỗ trợ đa ngôn ngữ,
+                                và dễ dàng tùy chỉnh. Bạn muốn tìm hiểu chi tiết về tính năng nào?
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" placeholder="Nhập tin nhắn..." disabled>
+                        <button class="chat-send-btn" disabled>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-info">
+                <p>💡 Mọi thay đổi sẽ được cập nhật trực tiếp vào chatbot</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Sticky Action Bar -->
+    <div class="action-bar">
+        <div class="action-bar-content">
+            <div class="action-bar-left">
+                <button class="btn-secondary" id="saveDraftBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path
+                            d="M15 2H5C4.4 2 4 2.4 4 3V17C4 17.6 4.4 18 5 18H15C15.6 18 16 17.6 16 17V3C16 2.4 15.6 2 15 2Z"
+                            stroke="currentColor" stroke-width="1.5" />
+                        <path d="M7 2V6H13V2M7 11H13M7 14H10" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" />
+                    </svg>
+                    Lưu nháp
+                </button>
+                <button class="btn-secondary" id="resetBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M3 10C3 6.1 6.1 3 10 3C11.8 3 13.4 3.7 14.6 4.9L17 7.5M17 3V7.5M17 7.5H12.5"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M17 10C17 13.9 13.9 17 10 17C8.2 17 6.6 16.3 5.4 15.1L3 12.5" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    Đặt lại
+                </button>
+            </div>
+
+            <div class="action-bar-right">
+                <div class="completion-info">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" />
+                        <path d="M10 7V10L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    <span>Sẵn sàng triển khai</span>
+                </div>
+                <button class="btn-primary" id="confirmBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M16 5L7.5 14L4 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Xác nhận & Triển khai
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="success-icon">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="28" fill="#10B981" opacity="0.1" />
+                        <circle cx="32" cy="32" r="20" fill="#10B981" />
+                        <path d="M24 32L28 36L40 24" stroke="white" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <h2>Chatbot đã sẵn sàng!</h2>
+                <p>Chatbot của bạn đã được tạo và cấu hình thành công</p>
+            </div>
+
+            <div class="modal-body">
+                <div class="embed-section">
+                    <h3>Mã nhúng Website</h3>
+                    <p class="embed-description">Sao chép đoạn mã dưới đây và dán vào file HTML của website, ngay trước
+                        thẻ đóng &lt;/body&gt;</p>
+
+                    <div class="code-block">
+                        <code id="embedCode">&lt;script src="https://chatbot.example.com/embed.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  ChatbotEmbed.init({
+    botId: "cb_" + Math.random().toString(36).substr(2, 9),
+    name: "<span id="modalBotName">Trợ lý AI</span>",
+    position: "bottom-right"
+  });
+&lt;/script&gt;</code>
+                        <button class="btn-copy" id="copyCodeBtn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <rect x="7" y="7" width="10" height="10" rx="2" stroke="currentColor"
+                                    stroke-width="1.5" />
+                                <path d="M13 7V5C13 4.4 12.6 4 12 4H5C4.4 4 4 4.4 4 5V12C4 12.6 4.4 13 5 13H7"
+                                    stroke="currentColor" stroke-width="1.5" />
+                            </svg>
+                            Sao chép mã
+                        </button>
+                    </div>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Các bước tiếp theo</h3>
+                    <ul>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="7" stroke="#10B981" stroke-width="2" />
+                                <path d="M7 10L9 12L13 8" stroke="#10B981" stroke-width="2" />
+                            </svg>
+                            Dán mã nhúng vào website của bạn
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="7" stroke="#6366F1" stroke-width="2" />
+                            </svg>
+                            Kiểm tra chatbot hoạt động trên website
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <circle cx="10" cy="10" r="7" stroke="#6366F1" stroke-width="2" />
+                            </svg>
+                            Theo dõi và cải thiện dựa trên phản hồi người dùng
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" id="closeModalBtn">Đóng</button>
+                <button class="btn-primary" id="dashboardBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <rect x="3" y="3" width="6" height="6" rx="1" fill="currentColor" />
+                        <rect x="11" y="3" width="6" height="6" rx="1" fill="currentColor" />
+                        <rect x="3" y="11" width="6" height="6" rx="1" fill="currentColor" />
+                        <rect x="11" y="11" width="6" height="6" rx="1" fill="currentColor" />
+                    </svg>
+                    Xem Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
