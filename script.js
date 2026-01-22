@@ -349,6 +349,98 @@ chatbotPersonality.addEventListener('change', (e) => {
 });
 
 // ============================================
+// CHAT BOX RESIZE FUNCTIONALITY
+// ============================================
+
+const chatContainer = document.getElementById('chatContainer');
+const resizeHandles = document.querySelectorAll('.resize-handle');
+
+let isResizing = false;
+let currentHandle = null;
+let startX, startY, startWidth, startHeight;
+
+resizeHandles.forEach(handle => {
+    handle.addEventListener('mousedown', initResize);
+});
+
+function initResize(e) {
+    e.preventDefault();
+    isResizing = true;
+    currentHandle = e.target.dataset.direction;
+
+    startX = e.clientX;
+    startY = e.clientY;
+    startWidth = chatContainer.offsetWidth;
+    startHeight = chatContainer.offsetHeight;
+
+    document.body.classList.add('resizing');
+    document.addEventListener('mousemove', resize);
+    document.addEventListener('mouseup', stopResize);
+}
+
+function resize(e) {
+    if (!isResizing) return;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    let newWidth = startWidth;
+    let newHeight = startHeight;
+
+    // Handle different resize directions
+    switch (currentHandle) {
+        case 'e':
+            newWidth = startWidth + dx;
+            break;
+        case 'w':
+            newWidth = startWidth - dx;
+            break;
+        case 's':
+            newHeight = startHeight + dy;
+            break;
+        case 'n':
+            newHeight = startHeight - dy;
+            break;
+        case 'se':
+            newWidth = startWidth + dx;
+            newHeight = startHeight + dy;
+            break;
+        case 'sw':
+            newWidth = startWidth - dx;
+            newHeight = startHeight + dy;
+            break;
+        case 'ne':
+            newWidth = startWidth + dx;
+            newHeight = startHeight - dy;
+            break;
+        case 'nw':
+            newWidth = startWidth - dx;
+            newHeight = startHeight - dy;
+            break;
+    }
+
+    // Apply constraints
+    const minWidth = 200;
+    const minHeight = 280;
+    const maxWidth = 400;
+    const maxHeight = 600;
+
+    newWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+    newHeight = Math.max(minHeight, Math.min(maxHeight, newHeight));
+
+    chatContainer.style.width = newWidth + 'px';
+    chatContainer.style.height = newHeight + 'px';
+}
+
+function stopResize() {
+    isResizing = false;
+    currentHandle = null;
+    document.body.classList.remove('resizing');
+    document.removeEventListener('mousemove', resize);
+    document.removeEventListener('mouseup', stopResize);
+}
+
+// ============================================
 // SMOOTH ANIMATIONS & INTERACTIONS
 // ============================================
 
@@ -445,7 +537,7 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ============================================
-// ACTION BAR FUNCTIONALITY
+// ACTION BUTTONS FUNCTIONALITY
 // ============================================
 
 const saveDraftBtn = document.getElementById('saveDraftBtn');
@@ -466,6 +558,10 @@ saveDraftBtn.addEventListener('click', () => {
         userMessageColor: userMessageColor.value,
         botMessageColor: botMessageColor.value,
         uploadedFiles: uploadedFiles.length,
+        chatboxSize: {
+            width: chatContainer.offsetWidth,
+            height: chatContainer.offsetHeight
+        },
         timestamp: new Date().toISOString()
     };
 
@@ -508,6 +604,10 @@ resetBtn.addEventListener('click', () => {
         previewName.textContent = 'Trợ lý AI';
         botNameInMessage.textContent = 'Trợ lý AI';
 
+        // Reset chatbox size
+        chatContainer.style.width = '280px';
+        chatContainer.style.height = '400px';
+
         // Clear draft from localStorage
         localStorage.removeItem('chatbot_draft');
 
@@ -520,10 +620,6 @@ confirmBtn.addEventListener('click', () => {
     // Update modal with current chatbot name
     modalBotName.textContent = chatbotNameInput.value || 'Trợ lý AI';
 
-    // Mark all steps as completed
-    const steps = document.querySelectorAll('.progress-step');
-    steps.forEach(step => step.classList.add('completed'));
-
     // Show success modal
     successModal.classList.add('active');
 
@@ -534,7 +630,11 @@ confirmBtn.addEventListener('click', () => {
         customPrompt: customPrompt.value,
         userMessageColor: userMessageColor.value,
         botMessageColor: botMessageColor.value,
-        filesCount: uploadedFiles.length
+        filesCount: uploadedFiles.length,
+        chatboxSize: {
+            width: chatContainer.offsetWidth,
+            height: chatContainer.offsetHeight
+        }
     });
 });
 
@@ -586,48 +686,13 @@ successModal.addEventListener('click', (e) => {
 });
 
 // ============================================
-// PROGRESS TRACKING
-// ============================================
-
-function updateProgressSteps() {
-    const steps = document.querySelectorAll('.progress-step');
-
-    // Check if data is added
-    const hasData = uploadedFiles.length > 0 ||
-        document.getElementById('textContent').value.trim() !== '' ||
-        document.getElementById('websiteUrl').value.trim() !== '' ||
-        document.getElementById('notionUrl').value.trim() !== '';
-
-    // Step 1: Data sources
-    if (hasData) {
-        steps[0].classList.add('completed');
-        steps[1].classList.add('active');
-    } else {
-        steps[0].classList.add('active');
-    }
-
-    // Step 2: Configuration (always considered configured if has name)
-    if (chatbotNameInput.value) {
-        steps[1].classList.add('completed');
-        steps[2].classList.add('active');
-    }
-
-    // Step 3: Preview (always active when page loads)
-    steps[2].classList.add('active');
-}
-
-// Update progress on data changes
-document.getElementById('textContent').addEventListener('input', updateProgressSteps);
-document.getElementById('websiteUrl').addEventListener('input', updateProgressSteps);
-document.getElementById('notionUrl').addEventListener('input', updateProgressSteps);
-
-// ============================================
 // INITIALIZATION
 // ============================================
 
 console.log('✅ Custom Chatbot Builder initialized');
 console.log('📊 All modules loaded and ready');
 console.log('🎨 Real-time preview enabled');
+console.log('↔️ Resize functionality enabled');
 
 // Load draft if exists
 const savedDraft = localStorage.getItem('chatbot_draft');
@@ -649,14 +714,16 @@ if (savedDraft) {
         updateBotMessageColor(draft.botMessageColor);
     }
 
+    if (draft.chatboxSize) {
+        chatContainer.style.width = draft.chatboxSize.width + 'px';
+        chatContainer.style.height = draft.chatboxSize.height + 'px';
+    }
+
     previewName.textContent = draft.chatbotName || 'Trợ lý AI';
     botNameInMessage.textContent = draft.chatbotName || 'Trợ lý AI';
 
     console.log('📝 Loaded draft from:', new Date(draft.timestamp).toLocaleString('vi-VN'));
 }
-
-// Initialize progress steps
-updateProgressSteps();
 
 // Show welcome notification
 setTimeout(() => {
