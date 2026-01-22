@@ -834,12 +834,11 @@ select.input-field {
 
 /* === Chatbot Preview === */
 .chatbot-preview {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-lg);
-    background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+    /* background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%); */
     overflow: hidden;
 }
 
@@ -852,7 +851,7 @@ select.input-field {
     max-height: 100%;
     background: white;
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-glow);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1181,10 +1180,12 @@ select.input-field {
     position: fixed;
     bottom: var(--space-xl);
     right: var(--space-xl);
+    left: var(--space-xl);  
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: var(--space-md);
     z-index: 100;
+    padding: 0.8rem 1.5rem;
 }
 
 .fab {
@@ -1200,6 +1201,10 @@ select.input-field {
     transition: all var(--transition-base);
     box-shadow: var(--shadow-fab);
     white-space: nowrap;
+}
+
+.fab-left {
+    margin-right: auto;
 }
 
 .fab:hover {

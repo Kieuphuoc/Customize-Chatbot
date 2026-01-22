@@ -198,7 +198,7 @@ const previewName = document.getElementById('previewName');
 const botNameInMessage = document.getElementById('botNameInMessage');
 
 chatbotNameInput.addEventListener('input', (e) => {
-    const name = e.target.value || 'Trợ lý AI';
+    const name = e.target.value || 'Chatbot AI';
     previewName.textContent = name;
     botNameInMessage.textContent = name;
 });
@@ -295,9 +295,10 @@ botColorHex.addEventListener('input', (e) => {
 });
 
 function updateBotMessageColor(color) {
-    botMessages.forEach(msg => {
-        msg.style.background = color;
-    });
+    const chatHeader = document.querySelector('.chat-header');
+    if (chatHeader) {
+        chatHeader.style.background = color;
+    }
 }
 
 // Reset color buttons
@@ -338,7 +339,7 @@ const personalityGreetings = {
 // Update greeting when personality changes
 chatbotPersonality.addEventListener('change', (e) => {
     const personality = e.target.value;
-    const name = chatbotNameInput.value || 'Trợ lý AI';
+    const name = chatbotNameInput.value || 'Chatbot AI';
     const greeting = personalityGreetings[personality].replace('{name}', name);
 
     // Update first message
@@ -574,7 +575,7 @@ saveDraftBtn.addEventListener('click', () => {
 resetBtn.addEventListener('click', () => {
     if (confirm('Bạn có chắc chắn muốn đặt lại toàn bộ cấu hình?')) {
         // Reset form fields
-        chatbotNameInput.value = 'Trợ lý AI';
+        chatbotNameInput.value = 'Chatbot AI';
         chatbotPersonality.value = 'default';
         customPrompt.value = '';
 
@@ -583,9 +584,9 @@ resetBtn.addEventListener('click', () => {
         userColorHex.value = '#6366F1';
         updateUserMessageColor('#6366F1');
 
-        botMessageColor.value = '#F3F4F6';
-        botColorHex.value = '#F3F4F6';
-        updateBotMessageColor('#F3F4F6');
+        botMessageColor.value = '#4F46E5';
+        botColorHex.value = '#4F46E5';
+        updateBotMessageColor('#4F46E5');
 
         // Clear uploaded files
         uploadedFiles.length = 0;
@@ -593,16 +594,14 @@ resetBtn.addEventListener('click', () => {
 
         // Reset icon
         iconPreview.innerHTML = `
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <circle cx="20" cy="20" r="18" fill="#6366F1"/>
-                <path d="M20 10C14 10 10 14 10 20C10 22.5 10.8 24.8 12 26.7L10 30L13.3 28C15.2 29.2 17.5 30 20 30C26 30 30 26 30 20C30 14 26 10 20 10Z" fill="white"/>
-            </svg>
+            <img src="assets/Mascots.png" alt="Bot Avatar" id="botAvatarImage" />
+
         `;
         previewAvatar.innerHTML = iconPreview.innerHTML;
 
         // Update preview name
-        previewName.textContent = 'Trợ lý AI';
-        botNameInMessage.textContent = 'Trợ lý AI';
+        previewName.textContent = 'Chatbot AI';
+        botNameInMessage.textContent = 'Chatbot AI';
 
         // Reset chatbox size
         chatContainer.style.width = '280px';
@@ -618,7 +617,7 @@ resetBtn.addEventListener('click', () => {
 // Confirm and deploy
 confirmBtn.addEventListener('click', () => {
     // Update modal with current chatbot name
-    modalBotName.textContent = chatbotNameInput.value || 'Trợ lý AI';
+    modalBotName.textContent = chatbotNameInput.value || 'Chatbot AI';
 
     // Show success modal
     successModal.classList.add('active');
@@ -698,7 +697,7 @@ console.log('↔️ Resize functionality enabled');
 const savedDraft = localStorage.getItem('chatbot_draft');
 if (savedDraft) {
     const draft = JSON.parse(savedDraft);
-    chatbotNameInput.value = draft.chatbotName || 'Trợ lý AI';
+    chatbotNameInput.value = draft.chatbotName || 'Chatbot AI';
     chatbotPersonality.value = draft.personality || 'default';
     customPrompt.value = draft.customPrompt || '';
 
@@ -719,13 +718,13 @@ if (savedDraft) {
         chatContainer.style.height = draft.chatboxSize.height + 'px';
     }
 
-    previewName.textContent = draft.chatbotName || 'Trợ lý AI';
-    botNameInMessage.textContent = draft.chatbotName || 'Trợ lý AI';
+    previewName.textContent = draft.chatbotName || 'Chatbot AI';
+    botNameInMessage.textContent = draft.chatbotName || 'Chatbot AI';
 
     console.log('📝 Loaded draft from:', new Date(draft.timestamp).toLocaleString('vi-VN'));
 }
 
 // Show welcome notification
-setTimeout(() => {
-    showNotification('Chào mừng đến với Chatbot Builder! 🚀');
-}, 500);
+// setTimeout(() => {
+//     showNotification('Chào mừng đến với Chatbot Builder! 🚀');
+// }, 500);
