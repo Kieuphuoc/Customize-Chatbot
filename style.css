@@ -7,11 +7,9 @@
 /* === CSS Variables & Design Tokens === */
 :root {
     /* Primary Gradients - Exact as Specified */
-    --primary-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A855F7 100%);
-    --primary-gradient-soft: linear-gradient(135deg,
-            rgba(79, 70, 229, 0.08) 0%,
-            rgba(124, 58, 237, 0.08) 100%);
-    --primary-gradient-hover: linear-gradient(135deg, #4338CA 0%, #6D28D9 50%, #9333EA 100%);
+    --primary-gradient: linear-gradient(100deg, #4a2a8a 0%, #6b6ff5 48%, #d6c9ff 100%);
+    --primary-gradient-soft: linear-gradient(110deg, rgba(74, 42, 138, 0.08) 0%, rgba(107, 111, 245, 0.08) 50%, rgba(214, 201, 255, 0.08) 100%);
+    --primary-gradient-hover: linear-gradient(110deg, #3f2a7a 0%, #5b5fe6 45%, #bfa9ff 100%);
 
     /* Color Palette */
     --color-primary: #4F46E5;
@@ -25,7 +23,7 @@
     --color-bg-card: #FFFFFF;
     --color-bg-hover: rgba(249, 250, 251, 0.8);
     --color-bg-active: #F1F5F9;
-    --color-border: #E2E8F0;
+    --color-border: #7775d4;
     --color-border-light: #F1F5F9;
 
     /* Text Colors */
@@ -64,9 +62,9 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
-    --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.15);
+    --shadow-glow: 0 0 12px rgba(78, 70, 229, 0.212);
     --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 20px rgba(0, 0, 0, 0.03);
-    --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.06), 0 20px 40px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 4px 12px rgba(26, 163, 100, 0.232), 0 20px 40px rgba(0, 0, 0, 0.04);
     --shadow-fab: 0 4px 14px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
     --shadow-fab-hover: 0 8px 24px rgba(0, 0, 0, 0.16), 0 4px 10px rgba(0, 0, 0, 0.1);
 
@@ -135,7 +133,7 @@ body {
 .sidebar {
     background: var(--color-bg-card);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-glow);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -172,6 +170,7 @@ body {
     background-clip: text;
     letter-spacing: -0.02em;
 }
+
 
 .sidebar-nav {
     flex: 1;
@@ -269,8 +268,10 @@ body {
 .content-header h2 {
     font-size: var(--font-size-2xl);
     font-weight: 700;
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-xs);
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     letter-spacing: -0.02em;
 }
 
@@ -311,7 +312,7 @@ body {
     text-align: center;
     transition: all var(--transition-base);
     cursor: pointer;
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--shadow-glow);
     position: relative;
     overflow: hidden;
 }
@@ -618,7 +619,7 @@ select.input-field {
     padding: var(--space-xl);
     background: var(--color-bg-card);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+    box-shadow: var(--shadow-glow);
     border: 1px solid var(--color-border-light);
     transition: all var(--transition-base);
 }
@@ -766,7 +767,7 @@ select.input-field {
 .preview-panel {
     background: var(--color-bg-card);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-glow);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1180,7 +1181,7 @@ select.input-field {
     position: fixed;
     bottom: var(--space-xl);
     right: var(--space-xl);
-    left: var(--space-xl);  
+    left: var(--space-xl);
     display: flex;
     flex-direction: row;
     gap: var(--space-md);
